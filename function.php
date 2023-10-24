@@ -1,7 +1,7 @@
 <?php
 
-function dd($data = "")
+function dd($data)
 {
     echo "<pre>";
-    die(print_r($data, true));
+    die(print_r($data, 1));
 }
