@@ -1,30 +1,9 @@
 <?php
 
-require "function.php";
-$pdo = require "connect.php";
-$statement = $pdo->prepare(
-    "UPDATE students 
-    SET name = :name, email = :email, gender = :gender, dob = :dob 
-    WHERE id = :id"
-);
+use App\DB;
 
-function bindParam(array $names = [])
-{
-    global $statement;
-    foreach ($names as $name) {
-        $statement->bindParam(":$name", $_POST["$name"]);
-    }
-};
+require __DIR__ . "/vendor/autoload.php";
 
-bindParam(['name', 'email', 'gender', 'dob', 'id']);
+$db = new DB;
 
-
-if ($statement->execute()) {
-    $current_year = date("Y");
-    $student_year = explode("-", $_POST['dob'])[0];
-    $age = $current_year - $student_year;
-    $id = $_POST['id'];
-    header("Location: /show.view.php?id=$id&age=$age");
-} else {
-    echo "fail";
-}
+$db->update($_POST, $_GET['id']);

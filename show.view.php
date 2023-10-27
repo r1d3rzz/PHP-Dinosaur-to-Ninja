@@ -23,12 +23,12 @@
                     </div>
                     <div class="card-body">
                         <?php
-                        require "./function.php";
-                        $pdo = require "connect.php";
-                        $id = $_GET['id'];
-                        $statement = $pdo->prepare("SELECT * FROM students WHERE id='$id'");
-                        $statement->execute();
-                        $student = $statement->fetch(PDO::FETCH_OBJ);
+                        require __DIR__ . "/vendor/autoload.php";
+
+                        use App\DB;
+
+                        $db = new DB;
+                        $student = $db->show($_GET['id']);
                         ?>
                         <table class="table">
                             <tr>

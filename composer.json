@@ -1,0 +1,21 @@
+{
+  "name": "rider/crud",
+  "description": "learn composer pkg",
+  "authors": [
+    {
+      "name": "r1d3rzz",
+      "email": "myintthwaykhine127@gmail.com"
+    }
+  ],
+  "require": {
+    "illuminate/database": "^10.29"
+  },
+  "autoload": {
+    "files": [
+      "function.php"
+    ],
+    "psr-4": {
+      "App\\": "App"
+    }
+  }
+}

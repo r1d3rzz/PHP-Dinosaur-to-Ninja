@@ -1,10 +1,10 @@
 <?php
-require "./function.php";
-$pdo = require "connect.php";
-$id = $_GET['id'];
-$statement = $pdo->prepare("SELECT * FROM students WHERE id='$id'");
-$statement->execute();
-$student = $statement->fetch(PDO::FETCH_OBJ);
+require __DIR__ . "/vendor/autoload.php";
+
+use App\DB;
+
+$db = new DB;
+$student = $db->show($_GET['id']);
 ?>
 
 <!DOCTYPE html>
@@ -26,6 +26,7 @@ $student = $statement->fetch(PDO::FETCH_OBJ);
                     <div class="card-header bg-warning text-light d-flex justify-content-between align-items-center">
                         <h2 class="h4">Update Student</h2>
                         <div>
+                            <a class="btn btn-danger btn-sm" href="/">Home</a>
                             <a class="btn btn-primary btn-sm" href="show.view.php?id=<?= $_GET['id'] ?>&age=<?= $_GET['age'] ?>">Back</a>
                         </div>
                     </div>

@@ -1,10 +1,10 @@
 <?php
+require __DIR__ . "/vendor/autoload.php";
 
-require "./function.php";
-$pdo = require "connect.php";
+use App\DB;
 
-$statement = $pdo->prepare("SELECT * from students");
-$statement->execute();
-$students = $statement->fetchAll(PDO::FETCH_OBJ);
+$db = new DB;
+
+$students = $db->index();
 
 require "index.view.php";

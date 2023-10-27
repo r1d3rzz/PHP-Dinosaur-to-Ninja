@@ -1,13 +1,9 @@
 <?php
 
-require "function.php";
-$pdo = require "connect.php";
+use App\DB;
 
-$id = $_GET['id'];
-$statement = $pdo->prepare("DELETE FROM students WHERE id = '$id'");
+require __DIR__ . "/vendor/autoload.php";
 
-if ($statement->execute()) {
-    header("Location: /");
-} else {
-    dd("Something Wrong");
-}
+$db = new DB;
+
+$db->destroy($_GET['id']);
