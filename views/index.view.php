@@ -21,7 +21,7 @@
                                 <div class="fw-bold">Total: <?= count($students); ?> students</div>
                             <?php endif; ?>
                         </div>
-                        <div><a href="create.view.php" class="btn btn-sm btn-primary">Add Student</a></div>
+                        <div><a href="/create" class="btn btn-sm btn-primary">Add Student</a></div>
                     </div>
                     <div class="card-body">
                         <?php if (count($students) > 0) : ?>
@@ -34,7 +34,7 @@
                                         <th class="fw-bold">Gender</th>
                                         <th class="fw-bold">Date of Birth</th>
                                         <th class="fw-bold">Age</th>
-                                        <th class="fw-bold">Action</th>
+                                        <th class="fw-bold" colspan="2" style="text-align: center;">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -51,7 +51,10 @@
                                             <td><?= ucfirst($student->gender); ?></td>
                                             <td><?= $student->dob; ?></td>
                                             <td><?= $dob; ?></td>
-                                            <td><a href="show.view.php?id=<?= $student->id; ?>&age=<?= $dob; ?>" class="btn btn-sm btn-dark">Detail</a></td>
+                                            <td>
+                                                <a href="/show?id=<?= $student->id; ?>&age=<?= $dob; ?>" class="btn btn-sm btn-dark">Detail</a>
+                                                <a href="/destroy?id=<?= $student->id; ?>" class="btn btn-sm btn-danger">Detail</a>
+                                            </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
