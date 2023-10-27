@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Student;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
 class DB
@@ -29,46 +30,17 @@ class DB
 
     public function index()
     {
-        return Capsule::table("students")->get();
+        return Student::all();
     }
 
     public function show($id)
     {
-        return Capsule::table("students")->where('id', $id)->first();
+        return Student::where('id', $id)->first();
     }
 
     public function store($data)
     {
-        $id = Capsule::table("students")->insertGetId([
-            "name" => $data['name'],
-            "email" => $data['email'],
-            "gender" => $data['gender'],
-            "dob" => $data['dob'],
-        ]);
-
-        if ($id) {
-            $current_year = date("Y");
-            $student_year = explode("-", $_POST['dob'])[0];
-            $age = $current_year - $student_year;
-            header("Location: /update.view.php?id=$id&age=$age");
-        } else {
-            dd("Fail");
-        }
-    }
-
-    public function destroy($id)
-    {
-        if ($id) {
-            Capsule::table("students")->where('id', $id)->delete();
-            header("Location: /");
-        } else {
-            dd("Fail");
-        }
-    }
-
-    public function update($data)
-    {
-        $formData = Capsule::table("students")->where("id", $data['id'])->update([
+        $formData = Student::create([
             "name" => $data['name'],
             "email" => $data['email'],
             "gender" => $data['gender'],
@@ -79,7 +51,37 @@ class DB
             $current_year = date("Y");
             $student_year = explode("-", $data['dob'])[0];
             $age = $current_year - $student_year;
-            $id = $data['id'];
+            header("Location: /update.view.php?id=$formData->id&age=$age");
+        } else {
+            dd("Fail");
+        }
+    }
+
+    public function destroy($id)
+    {
+        if ($id) {
+            Student::destroy($id);
+            header("Location: /");
+        } else {
+            dd("Fail");
+        }
+    }
+
+    public function update($data)
+    {
+        $id = $data['id'];
+
+        $formData = Student::where('id', $id)->update([
+            "name" => $data['name'],
+            "email" => $data['email'],
+            "gender" => $data['gender'],
+            "dob" => $data['dob'],
+        ]);
+
+        if ($formData) {
+            $current_year = date("Y");
+            $student_year = explode("-", $data['dob'])[0];
+            $age = $current_year - $student_year;
             header("Location: /show.view.php?id=$id&age=$age");
         } else {
             dd("Fail");

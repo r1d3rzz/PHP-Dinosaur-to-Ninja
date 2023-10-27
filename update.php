@@ -6,4 +6,4 @@ require __DIR__ . "/vendor/autoload.php";
 
 $db = new DB;
 
-$db->update($_POST, $_GET['id']);
+$db->update($_POST);
