@@ -10,7 +10,12 @@
   "require": {
     "illuminate/database": "^10.29",
     "symfony/var-dumper": "^6.3",
-    "symfony/http-foundation": "^6.3"
+    "symfony/http-foundation": "^6.3",
+    "symfony/http-kernel": "^6.3",
+    "symfony/routing": "^6.3",
+    "symfony/event-dispatcher": "^6.3",
+    "symfony/debug": "^4.4",
+    "symfony/templating": "^6.3"
   },
   "autoload": {
     "files": [

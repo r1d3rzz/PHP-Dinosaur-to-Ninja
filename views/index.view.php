@@ -52,8 +52,8 @@
                                             <td><?= $student->dob; ?></td>
                                             <td><?= $dob; ?></td>
                                             <td>
-                                                <a href="/show?id=<?= $student->id; ?>&age=<?= $dob; ?>" class="btn btn-sm btn-dark">Detail</a>
-                                                <a href="/destroy?id=<?= $student->id; ?>" class="btn btn-sm btn-danger">Detail</a>
+                                                <a href="/show/<?= $student->id; ?>?age=<?= $dob; ?>" class="btn btn-sm btn-dark">Detail</a>
+                                                <a href="/destroy/<?= $student->id; ?>" class="btn btn-sm btn-danger">Delete</a>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>

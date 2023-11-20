@@ -7,26 +7,16 @@ use Symfony\Component\HttpFoundation\Request;
 
 class StudentController
 {
-    private $query, $post;
-
-    public function __construct()
-    {
-        $request =  Request::createFromGlobals();
-
-        $this->query = $request->query;
-        $this->post = $request->request;
-    }
-
     public function index()
     {
         return view("index", [
-            "students" => Student::get(),
+            "students" => Student::all()
         ]);
     }
 
-    public function show()
+    public function show($id)
     {
-        $student = Student::find($this->query->get('id'));
+        $student = Student::find($id);
         return view('show', [
             'student' => $student,
         ]);
@@ -37,41 +27,40 @@ class StudentController
         return view('create');
     }
 
-    public function store()
+    public function store(Request $request)
     {
-        $student = Student::create($this->post->all());
+        $student = Student::create($request->request->all());
 
         $current_year = date("Y");
         $student_year = explode("-", $student->dob)[0];
         $age = $current_year - $student_year;
 
-        return redirect("/update?id=$student->id&age=$age");
+        return redirect("/update/$student->id?age=$age");
     }
 
-    public function update()
+    public function update($id)
     {
-        $student = Student::find($this->query->get('id'));
+        $student = Student::find($id);
 
-        view('update', [
+        return view('update', [
             "student" => $student
         ]);
     }
 
-    public function update_store()
+    public function update_store(Request $request)
     {
-        $id = $this->post->get('id');
+        $id = $request->request->get('id');
         $current_year = date("Y");
-        $student_year = explode("-", $this->post->get('dob'))[0];
+        $student_year = explode("-", $request->request->get('dob'))[0];
         $age = $current_year - $student_year;
 
-        Student::where('id', $id)->update($this->post->all());
+        Student::where('id', $id)->update($request->request->all());
 
-        return redirect("/show?id=$id&age=$age");
+        return redirect("/show/$id?age=$age");
     }
 
-    public function destroy()
+    public function destroy($id)
     {
-        $id = $this->query->get('id');
         Student::destroy($id);
         return redirect();
     }

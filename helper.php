@@ -1,12 +1,27 @@
 <?php
 
-function view(string $name, array $data = [])
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Templating\Loader\FilesystemLoader;
+use Symfony\Component\Templating\PhpEngine;
+use Symfony\Component\Templating\Helper\SlotsHelper;
+use Symfony\Component\Templating\TemplateNameParser;
+
+function view(string $name, array $data = [], $code = 200)
 {
-    extract($data);
-    require_once __DIR__ . "/views/$name.view.php";
+    $filesystemLoader = new FilesystemLoader(__DIR__ . '/views/%name%');
+
+    $templating = new PhpEngine(new TemplateNameParser(), $filesystemLoader);
+    $templating->set(new SlotsHelper());
+
+    return new Response(
+        $templating->render("$name.view.php", $data),
+        $code
+    );
 }
 
 function redirect(string $path = "/")
 {
-    header("Location: $path");
+    return new Response("", 301, [
+        "location" => $path
+    ]);
 }

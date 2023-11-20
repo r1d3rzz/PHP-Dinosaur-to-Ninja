@@ -1,30 +1,39 @@
 <?php
 
+use Symfony\Component\Routing\Route;
 use App\Controllers\StudentController;
+use Symfony\Component\Routing\RouteCollection;
 
-$routes = [
-    "/index" => [StudentController::class, "index"],
-    "/show" => [StudentController::class, "show"],
-    "/create" => [StudentController::class, "create"],
-    "/store" => [StudentController::class, "store"],
-    "/edit" => [StudentController::class, "edit"],
-    "/update" => [StudentController::class, "update"],
-    "/update_store" => [StudentController::class, "update_store"],
-    "/destroy" => [StudentController::class, "destroy"],
-];
+$routes = new RouteCollection();
 
-if (array_key_exists('PATH_INFO', $_SERVER)) {
-    $route = $_SERVER['PATH_INFO'];
-} else {
-    $route = "/index";
-}
+$routes->add('/', new Route("/", [
+    "_controller" => [StudentController::class, "index"]
+]));
 
-if (array_key_exists($route, $routes)) {
-    $controller = $routes[$route][0];
-    $method = $routes[$route][1];
-} else {
-    dd("404 Page Not Found");
-}
+$routes->add('show', new Route("/show/{id}", [
+    "_controller" => [StudentController::class, "show"]
+]));
 
-$home = new $controller();
-$home->$method();
+$routes->add('create', new Route("/create", [
+    "_controller" => [StudentController::class, "create"]
+]));
+
+$routes->add('store', new Route("/store", [
+    "_controller" => [StudentController::class, "store"]
+]));
+
+$routes->add('edit', new Route("/edit", [
+    "_controller" => [StudentController::class, "edit"]
+]));
+
+$routes->add('update', new Route("/update/{id}", [
+    "_controller" => [StudentController::class, "update"]
+]));
+
+$routes->add('update_store', new Route("/update_store", [
+    "_controller" => [StudentController::class, "update_store"]
+]));
+
+$routes->add('destroy', new Route("/destroy/{id}", [
+    "_controller" => [StudentController::class, "destroy"]
+]));

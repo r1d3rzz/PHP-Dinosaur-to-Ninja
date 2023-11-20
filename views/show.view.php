@@ -16,8 +16,8 @@
                 <div class="card">
                     <div class="card-header bg-info text-light d-flex justify-content-between align-items-center">
                         <h2 class="h4">
-                            <a href="/update?id=<?= $student->id; ?>&age=<?= $_GET['age']; ?>" class="btn btn-warning">Update Student</a>
-                            <a onclick="return confirm('Are you sure to delete it?')" href="/destroy?id=<?= $student->id; ?>" class="btn btn-danger">Remove Student</a>
+                            <a href="/update/<?= $student->id; ?>?age=<?= $_GET['age']; ?>" class="btn btn-warning">Update Student</a>
+                            <a onclick="return confirm('Are you sure to delete it?')" href="/destroy/<?= $student->id; ?>" class="btn btn-danger">Remove Student</a>
                         </h2>
                         <div><a href="/" class="btn btn-sm btn-primary">Back</a></div>
                     </div>

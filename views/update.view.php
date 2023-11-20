@@ -18,7 +18,7 @@
                         <h2 class="h4">Update Student</h2>
                         <div>
                             <a class="btn btn-danger btn-sm" href="/">Home</a>
-                            <a class="btn btn-primary btn-sm" href="/show?id=<?= $student->id; ?>&age=<?= $_GET['age'] ?>">Back</a>
+                            <a class="btn btn-primary btn-sm" href="/show/<?= $student->id; ?>?age=<?= $_GET['age'] ?>">Back</a>
                         </div>
                     </div>
                     <div class="card-body">
